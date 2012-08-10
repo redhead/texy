@@ -39,17 +39,15 @@ final class TexyHeadingModule extends TexyModule
 	public $top = 1;
 
 	/** @var bool  surrounded headings: more #### means higher heading */
-	public $moreMeansHigher = TRUE;
+	public $moreMeansHigher = FALSE;
 
 	/** @var int  balancing mode */
-	public $balancing = TexyHeadingModule::DYNAMIC;
+	public $balancing = TexyHeadingModule::FIXED;
 
 	/** @var array  when $balancing = TexyHeadingModule::FIXED */
 	public $levels = array(
-		'#' => 0,  //  #  -->  $levels['#'] + $top = 0 + 1 = 1  --> <h1> ... </h1>
-		'*' => 1,
-		'=' => 2,
-		'-' => 3,
+		'=' => 0,  //  #  -->  $levels['#'] + $top = 0 + 1 = 1  --> <h1> ... </h1>
+		'-' => 1,
 	);
 
 	/** @var array  used ID's */
@@ -68,13 +66,13 @@ final class TexyHeadingModule extends TexyModule
 		$texy->registerBlockPattern(
 			array($this, 'patternUnderline'),
 			'#^(\S.{0,1000})'.TEXY_MODIFIER_H.'?\n'
-			. '(\#{3,}+|\*{3,}+|={3,}+|-{3,}+)$#mU',
+			. '(={3,}+|-{3,}+)$#mU',
 			'heading/underlined'
 		);
 
 		$texy->registerBlockPattern(
 			array($this, 'patternSurround'),
-			'#^(\#{2,}+|={2,}+)(.+)'.TEXY_MODIFIER_H.'?()$#mU',
+			'#^(\#{1,6}+)(.+)'.TEXY_MODIFIER_H.'?()$#mU',
 			'heading/surrounded'
 		);
 	}
@@ -212,8 +210,8 @@ final class TexyHeadingModule extends TexyModule
 		//    [3] => .(title)[class]{style}<>
 
 		$mod = new TexyModifier($mMod);
-		$level = min(7, max(2, strlen($mLine)));
-		$level = $this->moreMeansHigher ? 7 - $level : $level - 2;
+		$level = min(6, max(1, strlen($mLine)));
+		$level = $this->moreMeansHigher ? 6 - $level : $level - 1;
 		$mContent = rtrim($mContent, $mLine[0] . ' ');
 		return $this->texy->invokeAroundHandlers('heading', $parser, array($level, $mContent, $mod, TRUE));
 	}
