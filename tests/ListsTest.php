@@ -1,8 +1,8 @@
 <?php
 
-include "MultiTexyTest.php";
+include_once "MultiTexyTestCase.php";
 
-class ListsTest extends MultiTexyTest
+class ListsTest extends MultiTexyTestCase
 {
 
 	public function getValues()

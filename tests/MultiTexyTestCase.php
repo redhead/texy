@@ -2,7 +2,7 @@
 
 include_once "../Texy/Texy.php";
 
-abstract class MultiTexyTest extends PHPUnit_Framework_TestCase
+abstract class MultiTexyTestCase extends PHPUnit_Framework_TestCase
 {
 
 	/** @var Texy */
