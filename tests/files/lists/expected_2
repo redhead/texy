@@ -1,0 +1,9 @@
+<ul>
+	<li>Item 1
+		<p>This is paragraph of the first item in the list</p>
+	</li>
+
+	<li>Item 2</li>
+</ul>
+
+<p>This is another paragraph following the list</p>
