@@ -26,7 +26,7 @@ class MultitexyCheckOptionsModule extends TexyModule
 		if (!$this->optionModule->hasOptions()) return;
 		
 		$el = TexyHtml::el('button');
-		$el->attrs['class'] = 'check-answers';
+		$el->attrs['class'][] = 'check-answers';
 		
 		$dom->add($el);
 	}

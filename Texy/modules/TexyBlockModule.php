@@ -227,14 +227,11 @@ final class TexyBlockModule extends TexyModule
 			$mod->decorate($tx, $el);
 			$el->parseBlock($tx, $s, $parser->isIndented());
 			
-			if(!isset($el->attr['class'])) {
-				$el->attrs['class'] = '';
+			$class = 'correct-block';
+			if($blocktype === 'block/incorrect') {
+				$class = 'incorrect-block';
 			}
-			if($blocktype === 'block/correct') {
-				$el->attrs['class'] = 'correct-block';
-			} else {
-				$el->attrs['class'] = 'incorrect-block';
-			}
+			$el->attrs['class'][] = $class;
 			
 			return $el;
 		}

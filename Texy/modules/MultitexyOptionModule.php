@@ -51,7 +51,7 @@ class MultitexyOptionModule extends TexyModule
 		$el = TexyHtml::el('input');
 		$el->attrs['type'] = 'checkbox';
 		$el->attrs['data-option'] = ($type === '+' ? 'c' : 'w');
-		$el->attrs['class'] = 'answer-option';
+		$el->attrs['class'][] = 'answer-option';
 
 		return $el;
 	}

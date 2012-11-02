@@ -1,0 +1,16 @@
+<p>What is the correct answer to this question?</p>
+
+<ul>
+	<li><input type="checkbox" data-option="w" class="answer-option"> This</li>
+
+	<li><input type="checkbox" data-option="c" class="answer-option"> WTF?</li>
+</ul>
+
+<div class="my-class correct-block">
+	<p>Correct</p>
+</div>
+
+<div class="my-class incorrect-block">
+	<p>Incorrect</p>
+</div>
+<button class="check-answers"></button>
