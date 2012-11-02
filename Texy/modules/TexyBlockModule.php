@@ -33,6 +33,8 @@ final class TexyBlockModule extends TexyModule
 		$texy->allowed['block/texysource'] = TRUE;
 		$texy->allowed['block/comment'] = TRUE;
 		$texy->allowed['block/div'] = TRUE;
+		$texy->allowed['block/correct'] = TRUE;
+		$texy->allowed['block/incorrect'] = TRUE;
 
 		$texy->addHandler('block', array($this, 'solve'));
 		$texy->addHandler('beforeBlockParse', array($this, 'beforeBlockParse'));
@@ -215,6 +217,25 @@ final class TexyBlockModule extends TexyModule
 			$el = TexyHtml::el('div');
 			$mod->decorate($tx, $el);
 			$el->parseBlock($tx, $s, $parser->isIndented()); // TODO: INDENT or NORMAL ?
+			return $el;
+		}
+
+		if ($blocktype === 'block/correct' || $blocktype === 'block/incorrect') {
+			$s = Texy::outdent($s);
+			if ($s==='') return "\n";
+			$el = TexyHtml::el('div');
+			$mod->decorate($tx, $el);
+			$el->parseBlock($tx, $s, $parser->isIndented());
+			
+			if(!isset($el->attr['class'])) {
+				$el->attrs['class'] = '';
+			}
+			if($blocktype === 'block/correct') {
+				$el->attrs['class'] = 'correct-block';
+			} else {
+				$el->attrs['class'] = 'incorrect-block';
+			}
+			
 			return $el;
 		}
 
