@@ -1,0 +1,8 @@
+<p>What is the correct answer to this question?</p>
+
+<ul>
+	<li><input type="checkbox" data-option="w" class="answer-option"> This</li>
+
+	<li><input type="checkbox" data-option="c" class="answer-option"> WTF?</li>
+</ul>
+<button class="check-answers"></button>

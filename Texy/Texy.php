@@ -57,6 +57,8 @@ require_once dirname(__FILE__) . '/modules/TexyEmoticonModule.php';
 require_once dirname(__FILE__) . '/modules/TexyTableModule.php';
 require_once dirname(__FILE__) . '/modules/TexyTypographyModule.php';
 require_once dirname(__FILE__) . '/modules/TexyHtmlOutputModule.php';
+require_once dirname(__FILE__) . '/modules/MultitexyOptionModule.php';
+require_once dirname(__FILE__) . '/modules/MultitexyCheckOptionsModule.php';
 
 
 
@@ -228,6 +230,12 @@ class Texy extends TexyObject
 	/** @var TexyHtmlOutputModule */
 	public $htmlOutputModule;
 
+	/** @var MultitexyOptionModule */
+	public $optionModule;
+
+	/** @var MultitexyCheckOptionsModule */
+	public $checkOptionsModule;
+
 
 	/**
 	 * Registered regexps and associated handlers for inline parsing.
@@ -358,6 +366,7 @@ class Texy extends TexyObject
 		$this->phraseModule = new TexyPhraseModule($this);
 		$this->linkModule = new TexyLinkModule($this);
 		$this->emoticonModule = new TexyEmoticonModule($this);
+		$this->optionModule = new MultitexyOptionModule($this);
 
 		// block parsing
 		$this->paragraphModule = new TexyParagraphModule($this);
@@ -370,6 +379,7 @@ class Texy extends TexyObject
 		$this->listModule = new TexyListModule($this);
 
 		// post process
+		$this->checkOptionsModule = new MultitexyCheckOptionsModule($this, $this->optionModule);
 		$this->typographyModule = new TexyTypographyModule($this);
 		$this->longWordsModule = new TexyLongWordsModule($this);
 		$this->htmlOutputModule = new TexyHtmlOutputModule($this);
@@ -489,7 +499,7 @@ class Texy extends TexyObject
 		} else {
 			$this->DOM->parseBlock($this, $text);
 		}
-
+		
 		// user after handler
 		$this->invokeHandlers('afterParse', array($this, $this->DOM, $singleLine));
 
